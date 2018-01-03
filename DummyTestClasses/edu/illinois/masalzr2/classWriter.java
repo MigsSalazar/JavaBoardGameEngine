@@ -1,2 +1,2 @@
-/*class="classWriter"*/public class classWriter{
-/*~class="classWriter"*/}
+public class classWriter{
+}

@@ -15,7 +15,7 @@ public class KeyClass implements KeyWord {
 	
 	private String name;
 	private HashMap<String, Boolean> delimeters;
-	private HashMap<String, KeyWord> methods;			//TODO make a KeyMethod class
+	private HashMap<String, KeyMethod> methods;			//TODO make a KeyMethod class
 	private HashMap<String, KeyWord> variables;			//TODO make a KeyVariable class
 	private HashMap<String, KeyClass> internalClasses;
 
@@ -25,7 +25,7 @@ public class KeyClass implements KeyWord {
 		delimeters.put("public", true);
 		delimeters.put("final", false);
 		delimeters.put("abstract", false);
-		methods = new HashMap<String, KeyWord>();
+		methods = new HashMap<String, KeyMethod>();
 		variables = new HashMap<String, KeyWord>();
 		internalClasses = new HashMap<String, KeyClass>();
 	}
@@ -33,41 +33,34 @@ public class KeyClass implements KeyWord {
 	
 	
 	@Override
-	public void writeOut(BufferedWriter writer) {
+	public void writeOut(BufferedWriter writer) throws IOException{
 		
-		try {
-			
-			writer.write("/*class=\""+name+"\"*/");
-			if(delimeters.get("public")){
-				writer.write("public ");
-			}else{
-				if(delimeters.get("final")){
-					writer.write("final ");
-				}else if(delimeters.get("abstract")){
-					writer.write("abstract ");
-				}
-			}
-			writer.write("class "+name+"{");
-			writer.newLine();
-			for(String s : variables.keySet()){
-				variables.get(s).writeOut(writer);
-				writer.newLine();
-			}
-			for(String key : methods.keySet()){
-				methods.get(key).writeOut(writer);
-				writer.newLine();
-			}
-			for(String key : internalClasses.keySet()){
-				internalClasses.get(key).writeOut(writer);
-				writer.newLine();
-			}
-			writer.write("/*~class=\""+name+"\"*/}");
-			
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//writer.write("/*class=\""+name+"\"*/");
+		if(delimeters.get("public")){
+			writer.write("public ");
 		}
+		if(delimeters.get("final")){
+			writer.write("final ");
+		}else if(delimeters.get("abstract")){
+			writer.write("abstract ");
+		}
+		writer.write("class "+name+"{");
+		writer.newLine();
+		for(String s : variables.keySet()){
+			variables.get(s).writeOut(writer);
+			writer.newLine();
+		}
+		for(String key : methods.keySet()){
+			methods.get(key).writeOut(writer);
+			writer.newLine();
+		}
+		for(String key : internalClasses.keySet()){
+			internalClasses.get(key).writeOut(writer);
+			writer.newLine();
+		}
+		writer.write("}");
+		
+		writer.close();
 	}
 	
 	public boolean isPublic(){
@@ -112,13 +105,13 @@ public class KeyClass implements KeyWord {
 
 
 
-	public HashMap<String, KeyWord> getMethods() {
+	public HashMap<String, KeyMethod> getMethods() {
 		return methods;
 	}
 
 
 
-	public void setMethods(HashMap<String, KeyWord> methods) {
+	public void setMethods(HashMap<String, KeyMethod> methods) {
 		this.methods = methods;
 	}
 

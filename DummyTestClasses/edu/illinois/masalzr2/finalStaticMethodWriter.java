@@ -1,0 +1,2 @@
+final static void standardMethodWriter (){
+}

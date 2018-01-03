@@ -1,6 +1,17 @@
-package edu.illinois.masalzr2;
+package edu.illinois.masalzr2.keywords;
 
 import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -8,13 +19,7 @@ import org.junit.Test;
 
 import edu.illinois.masalzr2.keywords.KeyClass;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
-public class TestDeserializeJavaClass {
+public class KeyClassTest {
 
 	private static Map<String,File> dummyFiles;
 	private static ArrayList<BufferedReader> readers;
@@ -28,7 +33,6 @@ public class TestDeserializeJavaClass {
 		homeDir = System.getProperty("user.dir");
 		dummyFiles = new HashMap<String, File>();
 		
-		dummyFiles.put("HelloWorldTest", new File(homeDir+"/DummyTestClasses/edu/illinois/masalzr2/HelloWorld.java") );
 		dummyFiles.put("classWriterTest", new File(homeDir+"/DummyTestClasses/edu/illinois/masalzr2/classWriter.java"));
 	}
 	
@@ -59,13 +63,6 @@ public class TestDeserializeJavaClass {
 		
 	}
 	
-	@Test
-	public void helloWorldTest() {
-		BufferedReader readin = getBufferedReader(dummyFiles.get("HelloWorldTest"));
-		DeserializeJavaClass jds = new DeserializeJavaClass();
-		fail("Not yet implemented");
-	}
-	
 	public BufferedReader getBufferedReader(File file){
 		if(!file.exists()){
 			fail("file does not exist");
@@ -90,4 +87,5 @@ public class TestDeserializeJavaClass {
 			}
 		}
 	}
+
 }
